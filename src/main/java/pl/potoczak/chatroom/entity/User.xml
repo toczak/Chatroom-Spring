@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+        version="2.0">
+
+    <entity class="pl.potoczak.chatroom.entity.User">
+        <table name="user" schema="chatroom" catalog=""/>
+        <attributes>
+            <id name="id">
+                <column name="id" precision="11"/>
+            </id>
+            <basic name="username">
+                <column name="username" length="25"/>
+            </basic>
+            <basic name="email">
+                <column name="email" length="50"/>
+            </basic>
+            <basic name="password">
+                <column name="password"/>
+            </basic>
+            <transient name="matchingPassword"/>
+            <one-to-many name="allPosts" mapped-by="userByIdUser" target-entity="pl.potoczak.chatroom.entity.Post"/>
+        </attributes>
+    </entity>
+</entity-mappings>

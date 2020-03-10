@@ -1,0 +1,116 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chatroom | Talk with everyone</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+
+<div th:replace="fragments/header :: header"/>
+
+<!--<div class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 bg-white border-bottom box-shadow">-->
+    <!--<h5 class="my-0 mr-md-auto font-weight-normal">Chatroom</h5>-->
+    <!--<a class="btn btn-outline-primary mr-2" href="#">Log In</a>-->
+    <!--<a class="btn btn-outline-primary" href="#">Register</a>-->
+<!--</div>-->
+
+<div class="sortDiv">
+    <form method="post">
+        Sorting:
+        <select name="selectSort" onchange="executeSelect(this.form)">
+            <!--<option value="new" <c:if test="${sortByLatest==true}">selected</c:if>>Latest</option>-->
+            <!--<option value="old" <c:if test="${sortByLatest==false}">selected</c:if>>Oldest</option>-->
+        </select>
+    </form>
+</div>
+
+<div class="searchDiv">
+    <form method="get" action="search">
+        Search by username:
+        <input type="text" name="username"/>
+        <input type="submit" value="Search">
+    </form>
+</div>
+<div class="container">
+    <div class="px-4 py-4 chat-box bg-white">
+        <div th:switch="${posts}">
+            <h2 th:case="null">Brak wiadomości!</h2>
+            <div th:case="*">
+                <div class="card mb-4" th:each="post : ${posts}">
+                    <div class="card-header" th:classappend="${session==post.getUser().getId()} ? 'bg-primary' : 'x'">
+                        User <b th:text="${post.getUser().getUsername()}"></b> wrote on <i
+                            th:text="${#dates.format(post.date, 'yyyy-MM-dd HH:mm')}"></i>:
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text" th:text="${post.getText()}"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white">
+        <!--<c:choose>-->
+        <!--<c:when test="${sessionScope.user!=null}">-->
+        <!--<form method="post" action="add">-->
+        <!--<div class="input-group">-->
+        <!--<textarea cols="115" name="textareaMessage" placeholder="Write message..." required></textarea>-->
+        <!--<div class="input-group-append">-->
+        <!--<input type="submit" name="buttonSendMessage" class="btn btn-primary" value="Send"/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</form>-->
+        <!--</c:when>-->
+        <!--<c:otherwise>-->
+        <!--<div class="text-center"><p class="mt-2 h5 font-weight-bold">Please login to comment.</p></div>-->
+        <!--</c:otherwise>-->
+        <!--</c:choose>-->
+    </div>
+</div>
+<hr class="mt-1">
+
+<div class="container">
+    <footer class="page-footer font-small stylish-color-dark ">
+        <div class="footer-copyright text-center mb-3">© <?php echo date("Y"); ?> Copyright:
+            <a href="https://github.com/toczak"> Patryk Potoczak</a>. All rights reserved.
+        </div>
+    </footer>
+</div>
+
+${infoRegister}
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+<script src="assets/js/vendor/popper.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="assets/js/vendor/holder.min.js"></script>
+<script>
+    function executeSelect(form) {
+        form.submit();
+    }
+</script>
+<script>
+    Holder.addTheme('thumb', {
+        bg: '#55595c',
+        fg: '#eceeef',
+        text: 'Thumbnail'
+    });
+</script>
+
+
+</body>
+</html>

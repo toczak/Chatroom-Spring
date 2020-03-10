@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chatroom | Login</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body class="text-center">
+<div th:replace="fragments/header :: header"/>
+
+<form class="form-signin" method="post" th:action="@{/login}">
+    <h1 class="h3 mb-3 font-weight-normal">Log In</h1>
+    <input type="text" name="inputLogin" class="form-control" placeholder="Username / address e-mail" required=""
+           autofocus="">
+    <input type="password" name="inputPassword" class="form-control" placeholder="Password" required="">
+    <input class="btn btn-lg btn-primary btn-block" value="Log in" type="submit">
+    <a class="nav-link" href="register">You don't have an account? Please register.</a>
+</form>
+
+</body>
+</html>

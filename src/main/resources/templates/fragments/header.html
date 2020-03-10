@@ -1,0 +1,21 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div th:fragment="header"
+     class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 bg-white border-bottom box-shadow">
+
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a href="/index">Chatroom</a></h5>
+    <div sec:authorize="!isAuthenticated()">
+        <a class="btn btn-outline-primary mr-2" href="/login">Sing in</a>
+        <a class="btn btn-outline-primary" href="/register">Register</a>
+    </div>
+    <div sec:authorize="isAuthenticated()">
+        <a class="btn btn-outline-primary" th:href="@{/logout}">Logout</a>
+    </div>
+</div>
+</body>
