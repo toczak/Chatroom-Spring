@@ -1,4 +1,4 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -15,12 +15,6 @@
 <body>
 
 <div th:replace="fragments/header :: header"/>
-
-<!--<div class="d-flex flex-column flex-md-row align-items-center p-1 px-md-4 mb-3 bg-white border-bottom box-shadow">-->
-    <!--<h5 class="my-0 mr-md-auto font-weight-normal">Chatroom</h5>-->
-    <!--<a class="btn btn-outline-primary mr-2" href="#">Log In</a>-->
-    <!--<a class="btn btn-outline-primary" href="#">Register</a>-->
-<!--</div>-->
 
 <div class="sortDiv">
     <form method="post">
@@ -58,21 +52,19 @@
     </div>
 
     <div class="bg-white">
-        <!--<c:choose>-->
-        <!--<c:when test="${sessionScope.user!=null}">-->
-        <!--<form method="post" action="add">-->
-        <!--<div class="input-group">-->
-        <!--<textarea cols="115" name="textareaMessage" placeholder="Write message..." required></textarea>-->
-        <!--<div class="input-group-append">-->
-        <!--<input type="submit" name="buttonSendMessage" class="btn btn-primary" value="Send"/>-->
-        <!--</div>-->
-        <!--</div>-->
-        <!--</form>-->
-        <!--</c:when>-->
-        <!--<c:otherwise>-->
-        <!--<div class="text-center"><p class="mt-2 h5 font-weight-bold">Please login to comment.</p></div>-->
-        <!--</c:otherwise>-->
-        <!--</c:choose>-->
+        <div sec:authorize="!isAuthenticated()">
+            <div class="text-center"><p class="mt-2 h5 font-weight-bold">Please login to comment.</p></div>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <form method="post" th:action="@{/add}">
+                <div class="input-group">
+                    <textarea cols="115" th:name="textareaMessage" placeholder="Write message..." required></textarea>
+                    <div class="input-group-append">
+                        <input type="submit" name="buttonSendMessage" class="btn btn-primary" value="Send"/>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 <hr class="mt-1">

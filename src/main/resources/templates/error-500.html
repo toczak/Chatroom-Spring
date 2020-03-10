@@ -1,0 +1,27 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chatroom | Error 404</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{/css/bootstrap.css}">
+    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+
+</head>
+
+<body class="text-center">
+<div th:replace="fragments/header :: header"/>
+
+<form class="form-signin" method="post" th:action="@{/login}">
+    <h1 class="h3 mb-3 font-weight-normal">Error 500</h1>
+    <h3>Internal server error</h3>
+    Click <a href="/index"/>here</a>
+    to go back to the Homepage.
+</form>
+
+</body>
+</html>

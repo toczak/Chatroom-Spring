@@ -41,21 +41,20 @@ public class MainController {
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
-        User user = new User();
-        model.addAttribute("user",user);
+        model.addAttribute("user",new User());
         return "register";
     }
 
     @PostMapping("/register")
-    public String registerUser(@Valid User user, Errors errors, BindingResult bindingResult) {
+    public String registerUser(@Valid User user, Errors errors, BindingResult result) {
 
         User userExists = userService.findUserByUsername(user.getUsername());
         if(userExists != null){
-            bindingResult.rejectValue("username", "error.user",
+            result.rejectValue("username", "error.user",
                     "There is already a user registered with the same user name.");
         }
         if(!userService.checkPasswordMatching(user)){
-            bindingResult.rejectValue("matchingPassword", "error.matchingPassword",
+            result.rejectValue("matchingPassword", "error.matchingPassword",
                     "Password and confirm password don't match.");
         }
         if(errors.hasErrors()) {
@@ -65,5 +64,15 @@ public class MainController {
             userService.saveUser(user);
             return "redirect:/login?register=true";
         }
+    }
+
+    @PostMapping("/add")
+    public String addMessage(@RequestParam("textareaMessage") String message, Principal principal)
+    {
+        if(message.isEmpty()){
+            return "redirect:/index";
+        }
+        postService.savePost(message,userService.findUserByUsername(principal.getName()));
+        return "redirect:/index";
     }
 }
