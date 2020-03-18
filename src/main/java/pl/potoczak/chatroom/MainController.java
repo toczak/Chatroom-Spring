@@ -7,8 +7,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.potoczak.chatroom.entity.User;
-import pl.potoczak.chatroom.repository.PostRepository;
-import pl.potoczak.chatroom.repository.UserRepository;
 import pl.potoczak.chatroom.service.PostService;
 import pl.potoczak.chatroom.service.UserService;
 
