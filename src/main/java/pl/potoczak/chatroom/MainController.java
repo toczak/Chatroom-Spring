@@ -64,13 +64,4 @@ public class MainController {
         }
     }
 
-    @PostMapping("/add")
-    public String addMessage(@RequestParam("textareaMessage") String message, Principal principal)
-    {
-        if(message.isEmpty()){
-            return "redirect:/index";
-        }
-        postService.savePost(message,userService.findUserByUsername(principal.getName()));
-        return "redirect:/index";
-    }
 }

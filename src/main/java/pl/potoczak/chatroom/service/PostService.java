@@ -34,11 +34,11 @@ public class PostService {
         return postRepository.findAll();
     }
 
-    public void savePost(String message, User user) {
+    public Post savePost(String message, User user) {
         Post post = new Post();
         post.setUser(user);
         post.setText(message);
         post.setDate(new Timestamp(System.currentTimeMillis()));
-        postRepository.save(post);
+        return postRepository.save(post);
     }
 }

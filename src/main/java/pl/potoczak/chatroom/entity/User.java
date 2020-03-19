@@ -1,5 +1,7 @@
 package pl.potoczak.chatroom.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Collection;
@@ -17,6 +19,13 @@ public class User {
     @NotBlank(message = "Confirm password is required.")
     private String matchingPassword;
     private Collection<Post> allPosts;
+
+    public User() {
+    }
+
+    public User(@NotBlank(message = "Username is required.") String username) {
+        this.username = username;
+    }
 
     @Id
     @Column(name = "id", nullable = false)
@@ -49,6 +58,7 @@ public class User {
     }
 
     @Basic
+    @JsonIgnore
     @Column(name = "password", nullable = false, length = 255)
     public String getPassword() {
         return password;
@@ -59,6 +69,7 @@ public class User {
     }
 
     @Transient
+    @JsonIgnore
     public String getMatchingPassword() {
         return matchingPassword;
     }
@@ -83,6 +94,7 @@ public class User {
         return Objects.hash(id, username, email, password);
     }
 
+    @JsonIgnore
     @OneToMany(mappedBy = "user")
     public Collection<Post> getAllPosts() {
         return allPosts;

@@ -12,7 +12,7 @@
     <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
-<body>
+<body onload="connect()">
 
 <div th:replace="fragments/header :: header"/>
 
@@ -37,7 +37,7 @@
     <div class="px-4 py-4 chat-box bg-white">
         <div th:switch="${posts}">
             <h2 th:case="null">Brak wiadomości!</h2>
-            <div th:case="*">
+            <div id="messages-box" th:case="*">
                 <div class="card mb-4" th:each="post : ${posts}">
                     <div class="card-header" th:classappend="${session==post.getUser().getId()} ? 'bg-primary' : 'x'">
                         User <b th:text="${post.getUser().getUsername()}"></b> wrote on <i
@@ -56,14 +56,13 @@
             <div class="text-center"><p class="mt-2 h5 font-weight-bold">Please login to comment.</p></div>
         </div>
         <div sec:authorize="isAuthenticated()">
-            <form method="post" th:action="@{/add}">
-                <div class="input-group">
-                    <textarea cols="115" th:name="textareaMessage" placeholder="Write message..." required></textarea>
-                    <div class="input-group-append">
-                        <input type="submit" name="buttonSendMessage" class="btn btn-primary" value="Send"/>
-                    </div>
+            <div class="input-group">
+                <textarea cols="115" th:name="textareaMessage" id="textareaMessage" placeholder="Write message..."
+                          required></textarea>
+                <div class="input-group-append">
+                    <input type="submit" class="btn btn-primary" id="buttonSend" value="Send" onclick="sendMessage()"/>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -71,38 +70,20 @@
 
 <div class="container">
     <footer class="page-footer font-small stylish-color-dark ">
-        <div class="footer-copyright text-center mb-3">© <?php echo date("Y"); ?> Copyright:
+        <div class="footer-copyright text-center mb-3">© 2020 Copyright:
             <a href="https://github.com/toczak"> Patryk Potoczak</a>. All rights reserved.
         </div>
     </footer>
 </div>
 
-${infoRegister}
-
-
 <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/chat.js}"></script>
+<script th:src="@{/js/stomp.js}"></script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
-<script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
-<script src="assets/js/vendor/popper.min.js"></script>
-<script src="../static/js/bootstrap.min.js"></script>
-<script src="assets/js/vendor/holder.min.js"></script>
-<script>
-    function executeSelect(form) {
-        form.submit();
-    }
-</script>
-<script>
-    Holder.addTheme('thumb', {
-        bg: '#55595c',
-        fg: '#eceeef',
-        text: 'Thumbnail'
-    });
-</script>
-
 
 </body>
 </html>
