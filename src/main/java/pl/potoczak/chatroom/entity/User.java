@@ -27,6 +27,17 @@ public class User {
         this.username = username;
     }
 
+    public User(@NotBlank(message = "Username is required.") String username, @NotBlank(message = "Password is required.") String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    public User(@NotBlank(message = "Username is required.") String username, @NotBlank(message = "Password is required.") String password, @NotBlank(message = "Confirm password is required.") String matchingPassword) {
+        this.username = username;
+        this.password = password;
+        this.matchingPassword = matchingPassword;
+    }
+
     @Id
     @Column(name = "id", nullable = false)
     public int getId() {

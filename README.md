@@ -8,11 +8,12 @@
 * Spring MVC
 * Spring Data JPA
 * Spring Security
-* WebSocket (STOMP)
+* WebSocket (with STOMP)
 * Hibernate 5
 * MySQL
 * Bootstrap 4
 * Thymeleaf
+* JUnit 5 (with Mockito)
 
 
 ## Screenshots

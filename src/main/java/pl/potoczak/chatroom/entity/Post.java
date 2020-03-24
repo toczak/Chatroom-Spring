@@ -65,4 +65,11 @@ public class Post {
     public void setUser(User userByIdUser) {
         this.user = userByIdUser;
     }
+
+    public Post(String text) {
+        this.text = text;
+    }
+
+    public Post() {
+    }
 }
