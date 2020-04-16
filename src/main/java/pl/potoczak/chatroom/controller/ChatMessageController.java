@@ -1,4 +1,4 @@
-package pl.potoczak.chatroom;
+package pl.potoczak.chatroom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -13,13 +13,6 @@ import java.security.Principal;
 
 @Controller
 public class ChatMessageController {
-
-//    @MessageMapping("/chat")
-//    @SendTo("/topic/messages")
-//    public ChatMessage get(Principal principal, ChatMessage chatMessage){
-//        chatMessage.setUser(principal.getName());
-//        return chatMessage;
-//    }
 
     @Autowired
     UserService userService;

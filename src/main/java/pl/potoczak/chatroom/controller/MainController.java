@@ -1,4 +1,4 @@
-package pl.potoczak.chatroom;
+package pl.potoczak.chatroom.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,15 +39,14 @@ public class MainController {
 
     @GetMapping("/register")
     public String showRegisterPage(Model model) {
-        model.addAttribute("user",new User());
+        model.addAttribute("user", new User());
         return "register";
     }
 
     @PostMapping("/register")
     public String registerUser(@Valid User user, Errors errors, BindingResult result) {
 
-        User userExists = userService.findUserByUsername(user.getUsername());
-        if(userExists != null){
+        if(userService.findUserByUsername(user.getUsername()) != null){
             result.rejectValue("username", "error.user",
                     "There is already a user registered with the same user name.");
         }

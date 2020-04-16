@@ -1,4 +1,4 @@
-package pl.potoczak.chatroom;
+package pl.potoczak.chatroom.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

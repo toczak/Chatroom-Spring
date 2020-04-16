@@ -36,7 +36,9 @@ function connect() {
         client.subscribe("/topic/messages", function (message) {
             showMessage(JSON.parse(message.body).user.username, JSON.parse(message.body).text, JSON.parse(message.body).date)
         });
-    })
+    });
+    var box = document.getElementById('messages-box');
+    box.scrollIntoView(false);
 }
 
 function sendMessage() {

@@ -17,13 +17,6 @@
 <div th:replace="fragments/header :: header"/>
 
 <div class="sortDiv">
-    <form method="post">
-        Sorting:
-        <select name="selectSort" onchange="executeSelect(this.form)">
-            <!--<option value="new" <c:if test="${sortByLatest==true}">selected</c:if>>Latest</option>-->
-            <!--<option value="old" <c:if test="${sortByLatest==false}">selected</c:if>>Oldest</option>-->
-        </select>
-    </form>
 </div>
 
 <div class="searchDiv">
@@ -39,11 +32,11 @@
             <h2 th:case="null">Brak wiadomości!</h2>
             <div id="messages-box" th:case="*">
                 <div class="card mb-4" th:each="post : ${posts}">
-                    <div class="card-header" th:classappend="${session==post.getUser().getId()} ? 'bg-primary' : 'x'">
+                    <div class="card-header p-1 px-3" th:classappend="${#authentication.getName().equals(post.getUser().getUsername())} ? 'bg-primary' : 'x'">
                         User <b th:text="${post.getUser().getUsername()}"></b> wrote on <i
                             th:text="${#dates.format(post.date, 'yyyy-MM-dd HH:mm')}"></i>:
                     </div>
-                    <div class="card-body">
+                    <div class="card-body p-1 px-3 mt-1">
                         <p class="card-text" th:text="${post.getText()}"></p>
                     </div>
                 </div>
