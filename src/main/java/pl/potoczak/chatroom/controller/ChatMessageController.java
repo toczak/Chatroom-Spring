@@ -22,10 +22,11 @@ public class ChatMessageController {
 
     @MessageMapping("/chat")
     @SendTo("/topic/messages")
-    public Post get(Principal principal, ChatMessage chatMessage) {
-        if (chatMessage.getText().trim().isEmpty())
-            return null;
-        else
-            return postService.savePost(chatMessage.getText(), userService.findUserByUsername(principal.getName()));
+    public ChatMessage get(Principal principal, ChatMessage chatMessage) {
+        if (!chatMessage.getText().trim().isEmpty()) {
+            Post post = postService.savePost(chatMessage.getText(), userService.findUserByUsername(principal.getName()));
+            return new ChatMessage(post.getUser().getUsername(),post.getText(),post.getDate());
+        }
+        return null;
     }
 }

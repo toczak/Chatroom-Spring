@@ -15,11 +15,11 @@ function isEmptyOrSpaces(str) {
     return str === null || str.match(/^ *$/) !== null || str.match(/^\n*$/) != null;
 }
 
-function showMessage(user, text, date) {
+function showMessage(username, text, date) {
     var respone = document.getElementById('messages-box');
     var newResponse = "<div class=\"card mb-4\" >\n" +
         "                    <div class=\"card-header\" >\n" +
-        "                        User <b>" + user + "</b> wrote on <i>\n" +
+        "                        User <b>" + username + "</b> wrote on <i>\n" +
         "                            " + getFormattedDate(new Date(date)) + "</i>:\n" +
         "                    </div>\n" +
         "                    <div class=\"card-body\">\n" +
@@ -34,7 +34,7 @@ function connect() {
     client = Stomp.client('ws://localhost:8080/chat');
     client.connect({}, function (frame) {
         client.subscribe("/topic/messages", function (message) {
-            showMessage(JSON.parse(message.body).user.username, JSON.parse(message.body).text, JSON.parse(message.body).date)
+            showMessage(JSON.parse(message.body).username, JSON.parse(message.body).text, JSON.parse(message.body).date)
         });
     });
     var box = document.getElementById('messages-box');

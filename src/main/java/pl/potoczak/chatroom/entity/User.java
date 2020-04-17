@@ -69,7 +69,7 @@ public class User {
     }
 
     @Basic
-    @JsonIgnore
+//    @JsonIgnore
     @Column(name = "password", nullable = false, length = 255)
     public String getPassword() {
         return password;
@@ -80,7 +80,7 @@ public class User {
     }
 
     @Transient
-    @JsonIgnore
+//    @JsonIgnore
     public String getMatchingPassword() {
         return matchingPassword;
     }
