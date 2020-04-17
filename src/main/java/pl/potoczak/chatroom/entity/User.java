@@ -9,15 +9,29 @@ import java.util.Objects;
 
 @Entity
 public class User {
-    private int id;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
+    @Column(name = "username", nullable = false, length = 25)
     @NotBlank(message = "Username is required.")
     private String username;
+
+    @Column(name = "email", nullable = false, length = 50)
     @NotBlank(message = "E-mail is required.")
     private String email;
+
+    @Column(name = "password", nullable = false, length = 255)
     @NotBlank(message = "Password is required.")
     private String password;
+
+    @Transient
     @NotBlank(message = "Confirm password is required.")
     private String matchingPassword;
+
+    @OneToMany(mappedBy = "user")
     private Collection<Post> allPosts;
 
     public User() {
@@ -38,18 +52,15 @@ public class User {
         this.matchingPassword = matchingPassword;
     }
 
-    @Id
-    @Column(name = "id", nullable = false)
-    public int getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "username", nullable = false, length = 25)
     public String getUsername() {
         return username;
     }
@@ -58,8 +69,6 @@ public class User {
         this.username = username;
     }
 
-    @Basic
-    @Column(name = "email", nullable = false, length = 50)
     public String getEmail() {
         return email;
     }
@@ -68,9 +77,6 @@ public class User {
         this.email = email;
     }
 
-    @Basic
-//    @JsonIgnore
-    @Column(name = "password", nullable = false, length = 255)
     public String getPassword() {
         return password;
     }
@@ -79,8 +85,6 @@ public class User {
         this.password = password;
     }
 
-    @Transient
-//    @JsonIgnore
     public String getMatchingPassword() {
         return matchingPassword;
     }
@@ -106,7 +110,6 @@ public class User {
     }
 
     @JsonIgnore
-    @OneToMany(mappedBy = "user")
     public Collection<Post> getAllPosts() {
         return allPosts;
     }

@@ -1,28 +1,45 @@
 package pl.potoczak.chatroom.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 @Entity
 public class Post {
-    private int id;
-    private String text;
-    private Timestamp date;
-    private User user;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    public int getId() {
+    private Long id;
+
+    @NotBlank(message = "Message cannot be empty!")
+    @Column(name = "text", nullable = false, length = 1000)
+    private String text;
+
+    @Column(name = "date", nullable = false)
+    private Timestamp date;
+
+    @ManyToOne
+    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
+    private User user;
+
+    public Post() {
+    }
+
+    public Post(String text) {
+        this.text = text;
+    }
+
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    @Basic
-    @Column(name = "text", nullable = false, length = 1000)
     public String getText() {
         return text;
     }
@@ -31,8 +48,6 @@ public class Post {
         this.text = text;
     }
 
-    @Basic
-    @Column(name = "date", nullable = false)
     public Timestamp getDate() {
         return date;
     }
@@ -56,8 +71,6 @@ public class Post {
         return Objects.hash(id, text, date);
     }
 
-    @ManyToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
     public User getUser() {
         return user;
     }
@@ -66,10 +79,4 @@ public class Post {
         this.user = userByIdUser;
     }
 
-    public Post(String text) {
-        this.text = text;
-    }
-
-    public Post() {
-    }
 }
