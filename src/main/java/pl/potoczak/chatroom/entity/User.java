@@ -1,6 +1,8 @@
 package pl.potoczak.chatroom.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.Hibernate;
+import pl.potoczak.chatroom.entity.security.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,7 +13,7 @@ import java.util.Objects;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -34,6 +36,14 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Collection<Post> allPosts;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+
     public User() {
     }
 
@@ -52,6 +62,14 @@ public class User {
         this.matchingPassword = matchingPassword;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", roles=" + roles +
+                '}';
+    }
 
     public Long getId() {
         return id;
@@ -116,5 +134,13 @@ public class User {
 
     public void setAllPosts(Collection<Post> postsById) {
         this.allPosts = postsById;
+    }
+
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

@@ -13,26 +13,32 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import pl.potoczak.chatroom.service.CustomUserDetailsService;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    private final CustomUserDetailsService userDetailsService;
+
+    @Autowired
+    public SecurityConfig(CustomUserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
+                    .antMatchers("/admin","/admin/*")
+                    .hasAuthority("ADMIN_PANEL_PRIVILEGE")
                     .antMatchers("/login", "/register")
-                    .access("hasRole('ANONYMOUS')")
-                    .anyRequest()
-                    .authenticated()
+                    .not().authenticated()
                     .and()
                 .formLogin()
                     .loginPage("/login")
@@ -47,7 +53,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .logoutSuccessUrl("/login")
                     .and()
                 .exceptionHandling()
-                    .accessDeniedPage("/error-403.html");
+                    .accessDeniedHandler((request, response, accessDeniedException) ->
+                            response.sendError(HttpServletResponse.SC_FORBIDDEN))
+                    .authenticationEntryPoint((request, response, authException) ->
+                            response.sendError(HttpServletResponse.SC_UNAUTHORIZED));
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.Objects;
 public class Post {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -21,7 +21,7 @@ public class Post {
     private Timestamp date;
 
     @ManyToOne
-    @JoinColumn(name = "id_user", referencedColumnName = "id", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     public Post() {

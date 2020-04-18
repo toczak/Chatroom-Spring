@@ -1,0 +1,43 @@
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Chatroom | Talk with everyone</title>
+
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body onload="connect()">
+
+<div th:replace="fragments/header :: header"/>
+
+<div class="sortDiv">
+</div>
+<div class="container">
+    ADMIN
+</div>
+<hr class="mt-1">
+
+<div class="container">
+    <footer class="page-footer font-small stylish-color-dark ">
+        <div class="footer-copyright text-center mb-3">© 2020 Copyright:
+            <a href="https://github.com/toczak"> Patryk Potoczak</a>. All rights reserved.
+        </div>
+    </footer>
+</div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script th:src="@{/js/chat.js}"></script>
+<script th:src="@{/js/stomp.js}"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+
+</body>
+</html>

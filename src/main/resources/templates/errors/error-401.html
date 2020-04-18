@@ -5,11 +5,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Chatroom | Error 403</title>
+    <title>Chatroom | Error 401</title>
 
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+    <link href="../../static/css/bootstrap.min.css" rel="stylesheet"
           th:href="@{/css/bootstrap.css}">
-    <link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+    <link href="../../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
 
 </head>
 
@@ -17,7 +17,7 @@
 <div th:replace="fragments/header :: header"/>
 
 <form class="form-signin" method="post" th:action="@{/login}">
-    <h1 class="h3 mb-3 font-weight-normal">Error 403</h1>
+    <h1 class="h3 mb-3 font-weight-normal">Error 401</h1>
     <h3>You don't have permission to view this site.</h3>
     Click <a href="/index" />here</a>
     to go back to the Homepage.

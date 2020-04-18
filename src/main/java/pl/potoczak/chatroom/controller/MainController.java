@@ -7,22 +7,26 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import pl.potoczak.chatroom.entity.User;
+import pl.potoczak.chatroom.repository.RoleRepository;
 import pl.potoczak.chatroom.service.PostService;
 import pl.potoczak.chatroom.service.UserService;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.Arrays;
 
 @Controller
 public class MainController {
 
     private UserService userService;
     private PostService postService;
+    private RoleRepository roleRepository;
 
     @Autowired
-    public MainController(UserService userService, PostService postService) {
+    public MainController(UserService userService, PostService postService, RoleRepository roleRepository) {
         this.userService = userService;
         this.postService = postService;
+        this.roleRepository = roleRepository;
     }
 
 
@@ -58,6 +62,7 @@ public class MainController {
             return "register";
         }
         else {
+            user.setRoles(Arrays.asList(roleRepository.findByName("ROLE_USER")));
             userService.saveUser(user);
             return "redirect:/login?register=true";
         }
